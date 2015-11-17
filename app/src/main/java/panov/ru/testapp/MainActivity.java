@@ -5,7 +5,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import panov.ru.testapp.model.ProductItem;
+
 public class MainActivity extends AppCompatActivity {
+
+    private List<ProductItem> productItems = new ArrayList<ProductItem>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
