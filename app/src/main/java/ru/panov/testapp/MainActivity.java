@@ -1,4 +1,4 @@
-package panov.ru.testapp;
+package ru.panov.testapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
-import panov.ru.testapp.model.ProductItem;
+import ru.panov.testapp.model.ProductItem;
 
 public class MainActivity extends AppCompatActivity {
 

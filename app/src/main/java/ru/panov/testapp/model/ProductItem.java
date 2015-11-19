@@ -1,4 +1,4 @@
-package panov.ru.testapp.model;
+package ru.panov.testapp.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

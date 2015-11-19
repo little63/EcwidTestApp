@@ -1,4 +1,4 @@
-package panov.ru.testapp;
+package ru.panov.testapp;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,14 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import panov.ru.testapp.model.ProductItem;
+import ru.panov.testapp.model.ProductItem;
 
 /**
  * Created by vitaly.panov on 18.11.15.
  */
+
 public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.ViewHolder> {
 
     private List<ProductItem> dataset;
