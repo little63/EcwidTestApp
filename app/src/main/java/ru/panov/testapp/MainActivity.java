@@ -2,6 +2,7 @@ package ru.panov.testapp;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -36,8 +37,17 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewFragm
 
     @Override
     public void onRssItemSelected(String link) {
-        DetailFragment fragment = (DetailFragment) getFragmentManager()
-                .findFragmentById(R.id.detailFragment);
-        fragment.setText(link);
+        boolean dual_pane = getResources().getBoolean(R.bool.dual_pane);
+        if (dual_pane) {
+            DetailFragment fragment = (DetailFragment) getFragmentManager()
+                    .findFragmentById(R.id.detailFragment);
+            fragment.setText(link);
+        } else {
+            Intent intent = new Intent(getApplicationContext(),
+                    DetailActivity.class);
+            intent.putExtra(DetailActivity.EXTRA_URL, link);
+            startActivity(intent);
+
+        }
     }
 }
