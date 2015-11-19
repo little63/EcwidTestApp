@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import ru.panov.testapp.model.ProductItem;
 
 public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.ViewHolder> {
 
+    private Context context;
     private List<ProductItem> dataset;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -43,8 +45,9 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ProductItemAdapter(List<ProductItem> myDataset) {
-        dataset = myDataset;
+    public ProductItemAdapter( Context context, List<ProductItem> dataset) {
+        this.context = context;
+        this.dataset = dataset;
     }
 
     // Create new views (invoked by the layout manager)
@@ -55,6 +58,15 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_list_item, parent, false);
         // set the view's size, margins, paddings and layout parameters
         ViewHolder vh = new ViewHolder(v);
+
+        /*v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "asd", Toast.LENGTH_LONG).show();
+                //updateDetail("fake");
+            }
+        });*/
+
         return vh;
     }
 

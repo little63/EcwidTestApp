@@ -46,7 +46,7 @@ public class RecyclerViewFragment extends Fragment {
             item.setName( str );
             items.add(item);
         }
-        ProductItemAdapter adapter = new ProductItemAdapter( items );
+        ProductItemAdapter adapter = new ProductItemAdapter( getActivity(), items );
         recyclerView.setAdapter(adapter);
 
         FloatingActionButton fab = (FloatingActionButton) root.findViewById(R.id.fab);
