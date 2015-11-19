@@ -1,15 +1,21 @@
 package ru.panov.testapp;
 
-import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.app.ListFragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +29,6 @@ import ru.panov.testapp.model.ProductItem;
 
 public class RecyclerViewFragment extends Fragment {
 
-    private OnItemSelectedListener listener;
-
-    public interface OnItemSelectedListener {
-        public void onRssItemSelected(String link);
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_recyclerview, container, false);
@@ -41,12 +41,12 @@ public class RecyclerViewFragment extends Fragment {
 
         List<ProductItem> items = new ArrayList<ProductItem>();
         String[] arr = getResources().getStringArray(R.array.countries);
-        for( String str : arr ){
+        for (String str : arr) {
             ProductItem item = new ProductItem();
-            item.setName( str );
+            item.setName(str);
             items.add(item);
         }
-        ProductItemAdapter adapter = new ProductItemAdapter( getActivity(), items );
+        ProductItemAdapter adapter = new ProductItemAdapter(getActivity(), items);
         recyclerView.setAdapter(adapter);
 
         FloatingActionButton fab = (FloatingActionButton) root.findViewById(R.id.fab);
@@ -55,7 +55,7 @@ public class RecyclerViewFragment extends Fragment {
         return root;
     }
 
-    @Override
+    /*@Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnItemSelectedListener) {
@@ -64,13 +64,5 @@ public class RecyclerViewFragment extends Fragment {
             throw new ClassCastException(context.toString()
                     + " must implement MyListFragment.OnItemSelectedListener");
         }
-    }
-
-    // triggers update of the details fragment
-    public void updateDetail(String uri) {
-        // create fake data
-        String newTime = String.valueOf(System.currentTimeMillis());
-        // send data to activity
-        listener.onRssItemSelected(newTime);
-    }
+    }*/
 }

@@ -20,7 +20,7 @@ import java.util.List;
 import ru.panov.testapp.fab.FloatingActionButton;
 import ru.panov.testapp.model.ProductItem;
 
-public class MainActivity extends AppCompatActivity implements RecyclerViewFragment.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements ProductItemAdapter.OnItemSelectedListener {
 
     private List<ProductItem> productItems = new ArrayList<ProductItem>();
     private RecyclerView mRecyclerView;

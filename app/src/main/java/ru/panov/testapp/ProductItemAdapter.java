@@ -18,6 +18,12 @@ import ru.panov.testapp.model.ProductItem;
 
 public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.ViewHolder> {
 
+    public interface OnItemSelectedListener {
+        public void onRssItemSelected(String link);
+    }
+
+    private OnItemSelectedListener listener;
+
     private Context context;
     private List<ProductItem> dataset;
 
@@ -48,6 +54,13 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
     public ProductItemAdapter( Context context, List<ProductItem> dataset) {
         this.context = context;
         this.dataset = dataset;
+
+        if( context instanceof OnItemSelectedListener){
+            listener = (OnItemSelectedListener) context;
+        } else {
+            throw new ClassCastException(context.toString()
+                    + " must implement MyListFragment.OnItemSelectedListener");
+        }
     }
 
     // Create new views (invoked by the layout manager)
@@ -59,13 +72,14 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
         // set the view's size, margins, paddings and layout parameters
         ViewHolder vh = new ViewHolder(v);
 
-        /*v.setOnClickListener(new View.OnClickListener() {
+        v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "asd", Toast.LENGTH_LONG).show();
-                //updateDetail("fake");
+                if( listener != null ){
+                    listener.onRssItemSelected("asdasd");
+                }
             }
-        });*/
+        });
 
         return vh;
     }
