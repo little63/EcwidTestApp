@@ -43,11 +43,9 @@ public class MainActivity extends AppCompatActivity implements ProductItemAdapte
                     .findFragmentById(R.id.detailFragment);
             fragment.setText(link);
         } else {
-            Intent intent = new Intent(getApplicationContext(),
-                    DetailActivity.class);
+            Intent intent = new Intent(getApplicationContext(),DetailActivity.class);
             intent.putExtra(DetailActivity.EXTRA_URL, link);
             startActivity(intent);
-
         }
     }
 }

@@ -2,11 +2,12 @@ package ru.panov.testapp;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 /**
  * Created by vitaly.panov on 19.11.15.
  */
-public class DetailActivity extends Activity {
+public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_URL = "url";
 
     @Override
