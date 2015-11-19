@@ -19,7 +19,7 @@ import java.util.List;
 import ru.panov.testapp.fab.FloatingActionButton;
 import ru.panov.testapp.model.ProductItem;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecyclerViewFragment.OnItemSelectedListener {
 
     private List<ProductItem> productItems = new ArrayList<ProductItem>();
     private RecyclerView mRecyclerView;
@@ -29,46 +29,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
 
-        FragmentManager fragmentManager = getFragmentManager();
-        Fragment fragment = new RecyclerViewFragment();
-        fragmentManager.beginTransaction().replace(android.R.id.content, fragment ).commit();
-
-        /*mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        // specify an adapter (see also next example)
-        mAdapter = new ProductItemAdapter(productItems);
-        mRecyclerView.setAdapter(mAdapter);*/
+        getSupportActionBar().hide();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public void onRssItemSelected(String link) {
+        DetailFragment fragment = (DetailFragment) getFragmentManager()
+                .findFragmentById(R.id.detailFragment);
+        fragment.setText(link);
     }
 }
