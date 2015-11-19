@@ -1,5 +1,6 @@
 package ru.panov.testapp;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,16 +63,17 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        /*final String name = dataset.get(position);
-        holder.txtHeader.setText(dataset.get(position));
+        ProductItem item = dataset.get(position);
+        final String name = item.getName();
+        holder.txtHeader.setText( name );
         holder.txtHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                remove(name);
+                //remove( item );
             }
         });
 
-        holder.txtFooter.setText("Footer: " + dataset.get(position));*/
+        holder.txtFooter.setText("Footer: " + dataset.get(position));
 
     }
 
