@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public static class RecyclerViewFragment extends Fragment {
+    /*public static class RecyclerViewFragment extends Fragment {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View root = inflater.inflate(R.layout.fragment_recyclerview, container, false);
@@ -98,5 +98,5 @@ public class MainActivity extends AppCompatActivity {
 
             return root;
         }
-    }
+    }*/
 }
