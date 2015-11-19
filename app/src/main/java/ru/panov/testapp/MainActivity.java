@@ -71,32 +71,4 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    /*public static class RecyclerViewFragment extends Fragment {
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View root = inflater.inflate(R.layout.fragment_recyclerview, container, false);
-
-            RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setItemAnimator(new DefaultItemAnimator());
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
-
-            List<ProductItem> items = new ArrayList<ProductItem>();
-            String[] arr = getResources().getStringArray(R.array.countries);
-            for( String str : arr ){
-                ProductItem item = new ProductItem();
-                item.setName( str );
-                items.add(item);
-            }
-            ProductItemAdapter adapter = new ProductItemAdapter( items );
-            recyclerView.setAdapter(adapter);
-
-            FloatingActionButton fab = (FloatingActionButton) root.findViewById(R.id.fab);
-            fab.attachToRecyclerView(recyclerView);
-
-            return root;
-        }
-    }*/
 }
