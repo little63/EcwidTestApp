@@ -1,12 +1,13 @@
 package ru.panov.testapp;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
+
+import ru.panov.testapp.fragments.DetailFragment;
 
 /**
  * Created by vitaly.panov on 19.11.15.
