@@ -12,15 +12,8 @@
         android:orientation="vertical"
         android:padding="20dip">
 
-        <EditText
-            android:id="@+id/product_name"
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:nextFocusDown="@+id/price"
-            android:hint="@string/add_product_name_hint"
-            android:layout_marginTop="5dip"/>
-
-        <EditText   android:id="@+id/price"
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/price"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:nextFocusDown="@+id/count"
@@ -28,7 +21,7 @@
             android:hint="@string/add_product_price_hint"
             android:layout_marginTop="5dip"/>
 
-        <EditText
+        <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/count"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"

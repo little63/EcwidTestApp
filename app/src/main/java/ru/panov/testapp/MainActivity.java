@@ -1,23 +1,14 @@
 package ru.panov.testapp;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.panov.testapp.fab.FloatingActionButton;
+import ru.panov.testapp.fragments.DetailFragment;
 import ru.panov.testapp.model.ProductItem;
 
 public class MainActivity extends AppCompatActivity implements ProductItemAdapter.OnItemSelectedListener {
