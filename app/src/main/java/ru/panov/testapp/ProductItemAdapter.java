@@ -6,23 +6,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
+import co.dift.ui.SwipeToAction;
 import ru.panov.testapp.model.ProductItem;
 
 /**
  * Created by vitaly.panov on 18.11.15.
  */
 
-public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.ViewHolder> {
+public class ProductItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    public interface OnItemSelectedListener {
-        public void onRssItemSelected(String link);
+    /** References to the views for each data item **/
+    public class ProductItemViewHolder extends SwipeToAction.ViewHolder<ProductItem> {
+        public TextView titleView;
+        public TextView priceView;
+        public TextView countView;
+
+        public ProductItemViewHolder(View v) {
+            super(v);
+
+            titleView = (TextView) v.findViewById(R.id.title);
+            priceView = (TextView) v.findViewById(R.id.price);
+            countView = (TextView) v.findViewById(R.id.count);
+        }
     }
-
-    private OnItemSelectedListener listener;
 
     private Context context;
     private List<ProductItem> dataset;
@@ -55,37 +64,35 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
         this.context = context;
         this.dataset = dataset;
 
-        if( context instanceof OnItemSelectedListener){
+        /*if( context instanceof OnItemSelectedListener){
             listener = (OnItemSelectedListener) context;
         } else {
             throw new ClassCastException(context.toString()
                     + " must implement MyListFragment.OnItemSelectedListener");
-        }
+        }*/
     }
 
     // Create new views (invoked by the layout manager)
+
     @Override
-    public ProductItemAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
-        // create a new view
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_list_item, parent, false);
-        // set the view's size, margins, paddings and layout parameters
-        ViewHolder vh = new ViewHolder(v);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_view, parent, false);
 
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if( listener != null ){
-                    listener.onRssItemSelected("asdasd");
-                }
-            }
-        });
-
-        return vh;
+        return new ProductItemViewHolder(view);
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        ProductItem item = dataset.get(position);
+        ProductItemViewHolder vh = (ProductItemViewHolder) holder;
+        vh.titleView.setText( item.getName() );
+        //vh.priceView.setText( item.getPrice().toString() );
+        //vh.countView.setText( item.getCount() );
+        vh.data = item;
+    }
+    // Replace the contents of a view (invoked by the layout manager)
+    /*@Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
@@ -101,7 +108,7 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
 
         holder.txtFooter.setText("Footer: " + dataset.get(position));
 
-    }
+    }*/
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override

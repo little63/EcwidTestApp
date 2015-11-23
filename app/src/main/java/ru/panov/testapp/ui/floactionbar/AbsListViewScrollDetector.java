@@ -1,4 +1,4 @@
-package ru.panov.testapp.fab;
+package ru.panov.testapp.ui.floactionbar;
 
 import android.support.annotation.NonNull;
 import android.view.View;

@@ -16,8 +16,10 @@ android {
         maven {
             url "https://jitpack.io"
         }
+
+        //jcenter()
     }
-    
+
     buildTypes {
         release {
             minifyEnabled false
@@ -33,4 +35,10 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.rengwuxian.materialedittext:library:2.1.4' //material edit text
     compile 'com.github.recruit-lifestyle:WaveSwipeRefreshLayout:1.4' //WAVE SWIPE
+    //compile 'com.baoyz.swipemenulistview:library:1.3.0' //swipe menu list view for deleting item in list
+    //compile 'com.github.kanytu:android-parallax-recyclerview:v1.4'
+    //compile 'com.mxn.soul:flowingdrawer-core:1.2.0' //left menu view
+    compile 'com.github.ppamorim:dragger:1.1'
+    compile 'co.dift.ui.swipetoaction:library:1.1'
+    compile 'com.android.support:design:23.0.1'
 }

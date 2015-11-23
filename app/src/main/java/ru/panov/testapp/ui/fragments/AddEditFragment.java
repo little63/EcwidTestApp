@@ -1,4 +1,4 @@
-package ru.panov.testapp.fragments;
+package ru.panov.testapp.ui.fragments;
 
 /**
  * Created by vitaly.panov on 23.11.15.

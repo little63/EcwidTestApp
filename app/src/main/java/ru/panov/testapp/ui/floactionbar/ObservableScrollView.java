@@ -1,4 +1,4 @@
-package ru.panov.testapp.fab;
+package ru.panov.testapp.ui.floactionbar;
 
 import android.content.Context;
 import android.util.AttributeSet;

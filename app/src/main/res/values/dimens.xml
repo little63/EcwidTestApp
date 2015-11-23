@@ -11,4 +11,7 @@
     <dimen name="fab_scroll_threshold">4dp</dimen>
     <dimen name="fab_elevation_lollipop">8dp</dimen>
     <dimen name="fab_press_translation_z">6dp</dimen>
+
+    <dimen name="item_height">80dp</dimen>
+    <dimen name="item_padding">16dp</dimen>
 </resources>

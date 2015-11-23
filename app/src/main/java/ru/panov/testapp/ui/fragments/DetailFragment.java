@@ -1,4 +1,4 @@
-package ru.panov.testapp.fragments;
+package ru.panov.testapp.ui.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;

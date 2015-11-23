@@ -13,6 +13,15 @@
         android:padding="20dip">
 
         <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/tittle"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:nextFocusDown="@+id/count"
+            android:inputType="numberDecimal"
+            android:hint="@string/add_product_tittle_hint"
+            android:layout_marginTop="5dip"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/price"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
@@ -36,27 +45,27 @@
             android:layout_gravity="center"
             android:orientation="horizontal">
 
-            <ru.panov.testapp.fab.FloatingActionButton
+            <ru.panov.testapp.ui.floactionbar.FloatingActionButton
                 android:id="@+id/btn_edit_add_product"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
                 android:layout_margin="16dp"
                 android:src="@drawable/ic_add_white_24dp"
-                fab:fab_colorNormal="@color/accent"
-                fab:fab_colorPressed="@color/accent_pressed"
-                fab:fab_colorRipple="@color/ripple"/>
+                fab:fab_colorNormal="@color/ok"
+                fab:fab_colorPressed="@color/ok_pressed"
+                fab:fab_colorRipple="@color/ok_ripple"/>
 
-            <ru.panov.testapp.fab.FloatingActionButton
+            <ru.panov.testapp.ui.floactionbar.FloatingActionButton
                 android:id="@+id/btn_cancel_product"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
                 android:layout_margin="16dp"
                 android:src="@drawable/ic_add_white_24dp"
-                fab:fab_colorNormal="@color/accent"
-                fab:fab_colorPressed="@color/accent_pressed"
-                fab:fab_colorRipple="@color/ripple"/>
+                fab:fab_colorNormal="@color/cancel"
+                fab:fab_colorPressed="@color/cancel_pressed"
+                fab:fab_colorRipple="@color/cancel_ripple"/>
 
         </LinearLayout>
 

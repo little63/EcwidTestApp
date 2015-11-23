@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -18,15 +21,15 @@
 
     </jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout>
 
-    <ru.panov.testapp.fab.FloatingActionButton
+    <ru.panov.testapp.ui.floactionbar.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
         android:src="@drawable/ic_add_white_24dp"
-        fab:fab_colorNormal="@color/accent"
-        fab:fab_colorPressed="@color/accent_pressed"
-        fab:fab_colorRipple="@color/ripple"/>
+        fab:fab_colorNormal="@color/ok"
+        fab:fab_colorPressed="@color/ok_pressed"
+        fab:fab_colorRipple="@color/ok_ripple"/>
 
 </FrameLayout>

@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 
-import ru.panov.testapp.fragments.DetailFragment;
+import ru.panov.testapp.ui.fragments.DetailFragment;
 
 /**
  * Created by vitaly.panov on 19.11.15.
@@ -35,7 +35,7 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         //TODO move to base activity
-        ActionBar actionBar = getSupportActionBar();
+        /*ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(false);
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowHomeEnabled(false);
@@ -54,7 +54,7 @@ public class DetailActivity extends AppCompatActivity {
                 }
 
             }
-        });
+        });*/
 
     }
 }
