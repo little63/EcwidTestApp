@@ -5,13 +5,62 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/detailsText"
+        android:id="@+id/tittleText"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal|center_vertical"
-        android:layout_marginTop="20dip"
-        android:text="Default Text"
+        android:layout_marginTop="30dip"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="30dip" />
+        android:textSize="20dip" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10dip"
+            android:text="@string/price"/>
+
+        <TextView
+            android:id="@+id/priceText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_marginTop="30dip"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="10dip" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10dip"
+            android:text="@string/count"/>
+
+        <TextView
+            android:id="@+id/countText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_marginTop="30dip"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="10dip" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10dip"
+            android:text="@string/peace"/>
+
+    </LinearLayout>
 
 </LinearLayout>

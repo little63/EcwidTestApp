@@ -11,4 +11,8 @@
     <string name="whait">Загрузка содержимого...</string>
     <string name="no_items">Список пуст</string>
     <!-- end messages -->
+
+    <string name="price">Цена: </string>
+    <string name="count">Количество: </string>
+    <string name="peace">шт.</string>
 </resources>

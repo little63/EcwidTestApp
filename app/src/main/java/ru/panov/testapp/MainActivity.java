@@ -17,7 +17,7 @@ import ru.panov.testapp.model.ProductItem;
 import ru.panov.testapp.ui.fragments.DetailFragment;
 import ru.panov.testapp.utils.DbOpenHelper;
 
-public class MainActivity extends AppCompatActivity implements RecyclerViewFragment.OnItemSelectedListener {
+public class MainActivity extends BaseActivity implements RecyclerViewFragment.OnItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewFragm
         //Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         //setSupportActionBar(myToolbar);
 
-        ActionBar actionBar = getSupportActionBar();
+        /*ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(false);
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowHomeEnabled(false);
@@ -53,26 +53,19 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewFragm
 
         ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
         view.setLayoutParams(layoutParams);
-        actionBar.setCustomView(view);
+        actionBar.setCustomView(view);*/
     }
 
     @Override
-    public void onRssItemSelected(String link) {
+    public void listItemSelected( ProductItem item ) {
         boolean dual_pane = getResources().getBoolean(R.bool.dual_pane);
         if (dual_pane) {
-            DetailFragment fragment = (DetailFragment) getFragmentManager()
-                    .findFragmentById(R.id.detailFragment);
-            fragment.setText(link);
+            DetailFragment fragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.detailFragment);
+            fragment.setItem(item);
         } else {
-            /*Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
-            intent.putExtra(EditAddProductItemActivity.ACTION_PARAM_NAME, EditAddProductItemActivity.ACTION_UPDATE);
-            ProductItem editedProductItem = adapter.getSelectedObject();
-            intent.putExtra(ProductItem.class.getCanonicalName(), editedProductItem);
-            startActivityForResult(intent, 1);*/
-
-            Intent intent = new Intent(getApplicationContext(),DetailActivity.class);
-            intent.putExtra(DetailActivity.EXTRA_URL, link);
-            startActivity(intent);
+            Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+            intent.putExtra(ProductItem.class.getCanonicalName(), item);
+            startActivityForResult(intent, 1);
         }
     }
 }

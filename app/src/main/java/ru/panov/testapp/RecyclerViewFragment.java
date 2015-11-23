@@ -39,7 +39,7 @@ public class RecyclerViewFragment extends Fragment {
     private SwipeToAction       swipeToAction;
 
     public interface OnItemSelectedListener {
-        public void onRssItemSelected(String link);
+        public void listItemSelected(ProductItem item);
     }
 
     private OnItemSelectedListener listener;
@@ -96,7 +96,7 @@ public class RecyclerViewFragment extends Fragment {
             @Override
             public void onClick(ProductItem itemData) {
                 if (listener != null) {
-                    listener.onRssItemSelected("asdasd");
+                    listener.listItemSelected( itemData );
                 }
             }
 
@@ -138,6 +138,11 @@ public class RecyclerViewFragment extends Fragment {
     }
 
     public void refreshList(List<ProductItem> result) {
+        if(result.size() > 0){
+            noItemsTextView.setVisibility(View.GONE);
+        } else {
+            noItemsTextView.setVisibility(View.VISIBLE);
+        }
         items.clear();
         items.addAll(result);
         adapter.notifyDataSetChanged();
@@ -175,7 +180,7 @@ public class RecyclerViewFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            //new GetProductItemsTask().execute();
+            new GetProductItemsTask().execute();
         }
     }
 
@@ -197,11 +202,6 @@ public class RecyclerViewFragment extends Fragment {
         protected void onPostExecute(List<ProductItem> result) {
             super.onPostExecute(result);
             dialog.dismiss();
-            if(result.size() > 0){
-                noItemsTextView.setVisibility(View.GONE);
-            } else {
-                noItemsTextView.setVisibility(View.VISIBLE);
-            }
             waveSwipeRefreshLayout.setRefreshing(false);
             refreshList(result);
         }

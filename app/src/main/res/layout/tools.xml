@@ -14,8 +14,8 @@
         <ImageButton
             android:src="@drawable/navigation_back"
             android:id="@+id/backButton"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:background="@null"
@@ -34,10 +34,10 @@
     </LinearLayout>
 
     <ImageButton
-        android:src="@drawable/ic_menu"
+        android:src="@drawable/ic_edit"
         android:id="@+id/menuButton"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:background="@null"

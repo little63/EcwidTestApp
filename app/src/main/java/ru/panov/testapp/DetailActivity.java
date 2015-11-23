@@ -5,15 +5,20 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
+import ru.panov.testapp.model.ProductItem;
 import ru.panov.testapp.ui.fragments.DetailFragment;
 
 /**
  * Created by vitaly.panov on 19.11.15.
  */
-public class DetailActivity extends AppCompatActivity {
-    public static final String EXTRA_URL = "url";
+public class DetailActivity extends BaseActivity {
+
+    private EditText tittleEditText;
+    private EditText priceEditText;
+    private EditText countEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,35 +31,15 @@ public class DetailActivity extends AppCompatActivity {
             return;
         }
         setContentView(R.layout.activity_detail);
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            String url = extras.getString(EXTRA_URL);
-            DetailFragment detailFragment = (DetailFragment) getFragmentManager()
-                    .findFragmentById(R.id.detailFragment);
-            detailFragment.setText(url);
-        }
 
-        //TODO move to base activity
-        /*ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(false);
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayUseLogoEnabled(false);
+        tittleEditText = (EditText)findViewById( R.id.tittle );
+        priceEditText  = (EditText)findViewById( R.id.price );
+        countEditText  = (EditText)findViewById( R.id.count );
+    }
 
-        //inflate tools menu
-        View view = LayoutInflater.from(actionBar.getThemedContext()).inflate(R.layout.tools, null);
-        ImageButton backBtn = (ImageButton)view.findViewById( R.id.backButton );
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (getFragmentManager().getBackStackEntryCount() > 0) {
-                    getFragmentManager().popBackStack();
-                }
-
-            }
-        });*/
-
+    public void setItem( ProductItem item){
+        tittleEditText.setText( item.getName() );
+        priceEditText.setText( item.getPrice().toString() );
+        countEditText.setText( item.getCount() );
     }
 }

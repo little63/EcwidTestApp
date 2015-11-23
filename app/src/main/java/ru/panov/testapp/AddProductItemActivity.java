@@ -15,7 +15,7 @@ import ru.panov.testapp.utils.DbOpenHelper;
  * Created by vitaly.panov on 19.11.15.
  */
 
-public class AddProductItemActivity extends AppCompatActivity {
+public class AddProductItemActivity extends BaseActivity {
 
     public static final String ACTION_PARAM_NAME = "ACTION";
     public static final int ACTION_CREATE = 0;
@@ -36,8 +36,6 @@ public class AddProductItemActivity extends AppCompatActivity {
         tittleEditText = (EditText)findViewById(R.id.tittle);
         priceEditText  = (EditText)findViewById(R.id.price);
         countEditText  = (EditText)findViewById(R.id.count);
-
-        //DbOpenHelper dbOpenHelper = new DbOpenHelper(getApplicationContext());
 
         Bundle b = getIntent().getExtras();
         if( b != null ){
