@@ -56,6 +56,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewFragm
                     .findFragmentById(R.id.detailFragment);
             fragment.setText(link);
         } else {
+            /*Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+            intent.putExtra(EditAddProductItemActivity.ACTION_PARAM_NAME, EditAddProductItemActivity.ACTION_UPDATE);
+            ProductItem editedProductItem = adapter.getSelectedObject();
+            intent.putExtra(ProductItem.class.getCanonicalName(), editedProductItem);
+            startActivityForResult(intent, 1);*/
+
             Intent intent = new Intent(getApplicationContext(),DetailActivity.class);
             intent.putExtra(DetailActivity.EXTRA_URL, link);
             startActivity(intent);
