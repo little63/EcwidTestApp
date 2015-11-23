@@ -101,8 +101,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
     public List<ProductItem> getProductItems() {
         List<ProductItem> ret = new ArrayList<ProductItem>();
         SQLiteDatabase db = getReadableDatabase();
-        String[] columns = new String[] {ID, PRODUCT_NAME_FIELD, PRODUCT_PRICE_FIELD, PRODUCT_COUNT_FIELD};
-        Cursor cursor = db.query(SELECT_PRODUCT_ROWS, columns, null, null, null, null, null);
+        Cursor cursor = db.rawQuery(SELECT_PRODUCT_ROWS, null);
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 do {

@@ -1,13 +1,21 @@
 package ru.panov.testapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
+import java.util.List;
+
+import ru.panov.testapp.model.ProductItem;
 import ru.panov.testapp.ui.fragments.DetailFragment;
+import ru.panov.testapp.utils.DbOpenHelper;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewFragment.OnItemSelectedListener {
 

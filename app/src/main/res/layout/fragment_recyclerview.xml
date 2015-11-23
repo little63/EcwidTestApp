@@ -7,6 +7,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView   android:id="@+id/no_items_textview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:text="@string/no_items"/>
+
     <jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

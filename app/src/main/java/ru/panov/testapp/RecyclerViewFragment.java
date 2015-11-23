@@ -1,5 +1,7 @@
 package ru.panov.testapp;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -20,6 +22,7 @@ import co.dift.ui.SwipeToAction;
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 import ru.panov.testapp.ui.floactionbar.FloatingActionButton;
 import ru.panov.testapp.model.ProductItem;
+import ru.panov.testapp.utils.DbOpenHelper;
 
 import android.support.design.widget.Snackbar;
 
@@ -29,6 +32,8 @@ import android.support.design.widget.Snackbar;
 
 public class RecyclerViewFragment extends Fragment {
 
+    private ProgressDialog      dialog;
+    private TextView            noItemsTextView;
     private List<ProductItem>   items;
     private ProductItemAdapter  adapter;
     private SwipeToAction       swipeToAction;
@@ -42,14 +47,24 @@ public class RecyclerViewFragment extends Fragment {
     private WaveSwipeRefreshLayout waveSwipeRefreshLayout;
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_recyclerview, container, false);
+
+        noItemsTextView = (TextView)root.findViewById(R.id.no_items_textview);
+
+        dialog = ProgressDialog.show(getContext(), "", getString(R.string.whait));
+        dialog.setCancelable(true);
 
         waveSwipeRefreshLayout = (WaveSwipeRefreshLayout) root.findViewById(R.id.main_swipe);
         waveSwipeRefreshLayout.setOnRefreshListener(new WaveSwipeRefreshLayout.OnRefreshListener() {
             @Override public void onRefresh() {
                 // Do work to refresh the list here.
-                new ReloadItemsTask().execute();
+                new GetProductItemsTask().execute();
             }
         });
 
@@ -70,7 +85,6 @@ public class RecyclerViewFragment extends Fragment {
             @Override
             public boolean swipeLeft(final ProductItem itemData) {
                 final int pos = removeItem(itemData);
-                //TODO remove
                 return true;
             }
 
@@ -119,36 +133,77 @@ public class RecyclerViewFragment extends Fragment {
         int pos = items.indexOf( item );
         items.remove(item);
         adapter.notifyItemRemoved(pos);
+        new DeleteTask().execute( item );
         return pos;
     }
 
-    private class ReloadItemsTask extends AsyncTask<Void, Void, String[]> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String[] doInBackground(Void... params) {
-            return new String[0];
-        }
-
-        @Override protected void onPostExecute(String[] result) {
-            // Call setRefreshing(false) when the list has been refreshed.
-            waveSwipeRefreshLayout.setRefreshing(false);
-            super.onPostExecute(result);
-        }
+    public void refreshList(List<ProductItem> result) {
+        items.clear();
+        items.addAll(result);
+        adapter.notifyDataSetChanged();
     }
 
-    /*@Override
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnItemSelectedListener) {
+        new GetProductItemsTask().execute();
+        /*if (context instanceof OnItemSelectedListener) {
             listener = (OnItemSelectedListener) context;
         } else {
             throw new ClassCastException(context.toString()
                     + " must implement MyListFragment.OnItemSelectedListener");
+        }*/
+    }
+
+    public class DeleteTask extends AsyncTask<ProductItem, Void, Void> {
+        DbOpenHelper dbOpenHelper;
+
+        @Override
+        protected Void doInBackground(ProductItem... deletedProductItems) {
+            for(int i = 0; i < deletedProductItems.length; i++){
+                dbOpenHelper.deleteProductItem(deletedProductItems[i]);
+            }
+            return null;
         }
-    }*/
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dbOpenHelper = new DbOpenHelper( getContext() );
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            //new GetProductItemsTask().execute();
+        }
+    }
+
+    public class GetProductItemsTask extends AsyncTask<Void, Void, List<ProductItem>> {
+        DbOpenHelper dbOpenHelper;
+
+        @Override
+        protected List<ProductItem> doInBackground(Void... voids) {
+            return dbOpenHelper.getProductItems();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dbOpenHelper = new DbOpenHelper( getContext() );
+        }
+
+        @Override
+        protected void onPostExecute(List<ProductItem> result) {
+            super.onPostExecute(result);
+            dialog.dismiss();
+            if(result.size() > 0){
+                noItemsTextView.setVisibility(View.GONE);
+            } else {
+                noItemsTextView.setVisibility(View.VISIBLE);
+            }
+            waveSwipeRefreshLayout.setRefreshing(false);
+            refreshList(result);
+        }
+    }
 }
