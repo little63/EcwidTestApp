@@ -1,4 +1,4 @@
-package ru.panov.testapp;
+package ru.panov.testapp.products;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import co.dift.ui.SwipeToAction;
+import ru.panov.testapp.R;
 import ru.panov.testapp.model.ProductItem;
 
 /**

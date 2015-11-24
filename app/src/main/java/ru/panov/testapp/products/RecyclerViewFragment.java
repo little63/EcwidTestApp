@@ -1,9 +1,8 @@
-package ru.panov.testapp;
+package ru.panov.testapp.products;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,11 +19,11 @@ import java.util.List;
 
 import co.dift.ui.SwipeToAction;
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
+import ru.panov.testapp.DividerItemDecoration;
+import ru.panov.testapp.R;
 import ru.panov.testapp.ui.floactionbar.FloatingActionButton;
 import ru.panov.testapp.model.ProductItem;
 import ru.panov.testapp.utils.DbOpenHelper;
-
-import android.support.design.widget.Snackbar;
 
 /**
  * Created by vitaly.panov on 19.11.15.

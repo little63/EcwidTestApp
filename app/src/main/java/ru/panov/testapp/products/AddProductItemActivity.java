@@ -1,4 +1,4 @@
-package ru.panov.testapp;
+package ru.panov.testapp.products;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 
+import ru.panov.testapp.BaseActivity;
+import ru.panov.testapp.R;
 import ru.panov.testapp.model.ProductItem;
 import ru.panov.testapp.ui.floactionbar.FloatingActionButton;
 import ru.panov.testapp.utils.DbOpenHelper;
@@ -32,6 +34,8 @@ public class AddProductItemActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_add);
+
+        editButton.setVisibility( View.GONE );
 
         tittleEditText = (EditText)findViewById(R.id.tittle);
         priceEditText  = (EditText)findViewById(R.id.price);

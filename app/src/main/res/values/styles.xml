@@ -11,8 +11,7 @@
     </style>
 
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
-    <item name="android:background">@color/header</item>
-
-</style>
+        <item name="android:background">@color/header</item>
+    </style>
 
 </resources>

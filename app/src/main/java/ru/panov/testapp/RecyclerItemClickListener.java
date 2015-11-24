@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 /**
- * Created by vetalpanov on 23.11.15.
+ * Created by vitaly.panov on 23.11.15.
  */
 public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
 

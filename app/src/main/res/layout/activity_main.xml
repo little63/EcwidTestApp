@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="match_parent"
-        class="ru.panov.testapp.RecyclerViewFragment" >
+        class="ru.panov.testapp.products.RecyclerViewFragment" >
     </fragment>
 
     <fragment
@@ -18,7 +18,7 @@
         android:layout_width="0dp"
         android:layout_weight="2"
         android:layout_height="match_parent"
-        class="ru.panov.testapp.ui.fragments.DetailFragment" >
+        class="ru.panov.testapp.products.DetailFragment" >
     </fragment>
 
 </LinearLayout>

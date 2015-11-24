@@ -1,5 +1,6 @@
 package ru.panov.testapp;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -13,6 +14,8 @@ import android.widget.ImageButton;
  * Created by vetalpanov on 23.11.15.
  */
 public class BaseActivity extends AppCompatActivity {
+    protected ImageButton editButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,5 +42,7 @@ public class BaseActivity extends AppCompatActivity {
         ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
         view.setLayoutParams(layoutParams);
         actionBar.setCustomView(view);
+
+        editButton = (ImageButton)view.findViewById( R.id.editButton );
     }
 }

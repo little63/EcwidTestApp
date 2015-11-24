@@ -11,12 +11,14 @@
     <color name="ok">#2893f5</color>
     <color name="ok_pressed">#1f67aa</color>
 
+    <!-- action bar -->
+    <color name="header">#2893f5</color>
+    <!-- end action bar -->
 
     <!-- fab colors -->
     <color name="blue">#5677fc</color>
 
     <!-- swipe to action -->
-    <color name="header">#2893f5</color>
     <color name="divider">#CCC</color>
     <color name="icons">#FFF</color>
     <color name="item_background">#FFF</color>
