@@ -1,4 +1,22 @@
 apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
+def AAVersion = '3.2'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
+    }
+}
+
+apt {
+    arguments {
+        androidManifestFile variant.outputs[0].processResources.manifestFile
+        resourcePackageName 'ru.panov.testapp'
+    }
+}
 
 android {
     compileSdkVersion 23
@@ -28,6 +46,7 @@ android {
     }
 }
 
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.1.0'
@@ -38,4 +57,7 @@ dependencies {
     compile 'com.github.ppamorim:dragger:1.1'
     compile 'co.dift.ui.swipetoaction:library:1.1'
     compile 'com.android.support:design:23.0.1'
+    //androidannotations
+    apt "org.androidannotations:androidannotations:$AAVersion"
+    compile "org.androidannotations:androidannotations-api:$AAVersion"
 }
