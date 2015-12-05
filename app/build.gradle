@@ -61,5 +61,4 @@ dependencies {
     //androidannotations
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
-    compile('de.greenrobot:DaoGenerator:1.3.0')
 }
