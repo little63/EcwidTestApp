@@ -20,18 +20,17 @@ import ru.panov.testapp.model.ProductItem;
 @EFragment(R.layout.fragment_detail)
 public class DetailFragment extends Fragment {
 
-    /*@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_detail,
-                container, false);
-
-        return view;
-    }*/
+    @ViewById(R.id.tittleEditText)
+    public EditText tittleEditText;
+    @ViewById(R.id.priceEditText)
+    public EditText priceEditText;
+    @ViewById(R.id.countEditText)
+    public EditText countEditText;
 
     public void setItem( ProductItem item){
-        EditText tittleEditText = (EditText)getView().findViewById(R.id.tittleEditText);
-        EditText priceEditText  = (EditText)getView().findViewById(R.id.priceEditText);
-        EditText countEditText  = (EditText)getView().findViewById(R.id.countEditText);
+        //EditText tittleEditText = (EditText)getView().findViewById(R.id.tittleEditText);
+        //EditText priceEditText  = (EditText)getView().findViewById(R.id.priceEditText);
+        //EditText countEditText  = (EditText)getView().findViewById(R.id.countEditText);
 
         if( tittleEditText != null && priceEditText != null && countEditText != null ){
 

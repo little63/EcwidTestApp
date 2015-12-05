@@ -5,7 +5,8 @@ import android.os.Bundle;
 import org.androidannotations.annotations.EActivity;
 
 import ru.panov.testapp.model.ProductItem;
-import ru.panov.testapp.products.DetailActivity;
+
+import ru.panov.testapp.products.DetailActivity_;
 import ru.panov.testapp.products.RecyclerViewFragment_;
 
 @EActivity(R.layout.activity_main)
@@ -25,7 +26,7 @@ public class MainActivity extends BaseActivity implements RecyclerViewFragment_.
             //DetailFragment fragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.detailFragment);
             //fragment.setItem(item);
         } else {
-            Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+            Intent intent = new Intent(getApplicationContext(), DetailActivity_.class);
             intent.putExtra(ProductItem.class.getCanonicalName(), item);
             startActivityForResult(intent, 1);
         }
