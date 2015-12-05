@@ -26,6 +26,12 @@ public class ProductItem implements Parcelable {
     public ProductItem() {
     }
 
+    public ProductItem(String name, Float price, Integer count) {
+        this.name = name;
+        this.price = price;
+        this.count = count;
+    }
+
     public ProductItem(Parcel in) {
         readFromParcel(in);
     }

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import org.androidannotations.annotations.EActivity;
+
 import ru.panov.testapp.BaseActivity;
 import ru.panov.testapp.R;
 import ru.panov.testapp.model.ProductItem;
@@ -11,7 +13,12 @@ import ru.panov.testapp.model.ProductItem;
 /**
  * Created by vitaly.panov on 19.11.15.
  */
+
+@EActivity(R.layout.activity_detail)
 public class DetailActivity extends BaseActivity {
+
+    //@Fragment(R.id.detailFragment)
+    //protected DetailFragment fragment;
 
     private ProductItem selectedItem;
 
@@ -25,7 +32,7 @@ public class DetailActivity extends BaseActivity {
             finish();
             return;
         }
-        setContentView(R.layout.activity_detail);
+        //setContentView(R.layout.activity_detail);
 
         //get selected item
         Bundle b = getIntent().getExtras();
@@ -35,7 +42,8 @@ public class DetailActivity extends BaseActivity {
 
                 //fragment set item
                 //DetailFragment fragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.detailFragment);
-                DetailFragment fragment = (DetailFragment)getSupportFragmentManager().findFragmentById( R.id.detailFragment );
+                //DetailFragment fragment = (DetailFragment)getSupportFragmentManager().findFragmentById( R.id.detailFragment );
+                DetailFragment fragment = new DetailFragment_();
                 fragment.setItem( selectedItem );
 
             }

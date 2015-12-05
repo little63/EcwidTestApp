@@ -10,11 +10,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.SystemService;
+import org.androidannotations.annotations.ViewById;
+
 /**
  * Created by vetalpanov on 23.11.15.
  */
+
+@EActivity
 public class BaseActivity extends AppCompatActivity {
+
+    //@ViewById(R.id.editButton)
     protected ImageButton editButton;
+    //@ViewById(R.id.backButton)
+    protected ImageButton backBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +37,10 @@ public class BaseActivity extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayUseLogoEnabled(false);
 
-        actionBar.setBackgroundDrawable( new ColorDrawable( ContextCompat.getColor( getApplicationContext(), R.color.header) ) );
+        actionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getApplicationContext(), R.color.header)));
 
         //inflate tools menu
+        //TODO inflate from android annotations
         View view = LayoutInflater.from(actionBar.getThemedContext()).inflate(R.layout.tools, null);
         ImageButton backBtn = (ImageButton)view.findViewById( R.id.backButton );
         backBtn.setOnClickListener(new View.OnClickListener() {

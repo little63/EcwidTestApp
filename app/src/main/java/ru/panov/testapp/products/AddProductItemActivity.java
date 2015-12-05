@@ -2,10 +2,13 @@ package ru.panov.testapp.products;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 
 import ru.panov.testapp.BaseActivity;
 import ru.panov.testapp.R;
@@ -17,6 +20,7 @@ import ru.panov.testapp.utils.DbOpenHelper;
  * Created by vitaly.panov on 19.11.15.
  */
 
+@EActivity(R.layout.activity_add)
 public class AddProductItemActivity extends BaseActivity {
 
     public static final String ACTION_PARAM_NAME = "ACTION";
@@ -25,21 +29,25 @@ public class AddProductItemActivity extends BaseActivity {
     private int action = ACTION_CREATE;
 
     private Integer editedId;
-    private EditText tittleEditText;
-    private EditText priceEditText;
-    private EditText countEditText;
+
+    @ViewById
+    public EditText tittleEditText;
+    @ViewById
+    public EditText priceEditText;
+    @ViewById
+    public EditText countEditText;
+
+    @ViewById(R.id.btn_edit_product)
+    FloatingActionButton fabEdit;
+
+    @ViewById(R.id.btn_cancel_product)
+    FloatingActionButton fabCacel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_add);
-
         editButton.setVisibility( View.GONE );
-
-        tittleEditText = (EditText)findViewById(R.id.tittle);
-        priceEditText  = (EditText)findViewById(R.id.price);
-        countEditText  = (EditText)findViewById(R.id.count);
 
         Bundle b = getIntent().getExtras();
         if( b != null ){
@@ -59,7 +67,10 @@ public class AddProductItemActivity extends BaseActivity {
                     break;
             }
         }
+    }
 
+    @AfterViews
+    void viewsInitialized() {
         countEditText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
@@ -75,15 +86,31 @@ public class AddProductItemActivity extends BaseActivity {
             }
         });
 
-        FloatingActionButton fabEdit = (FloatingActionButton) findViewById(R.id.btn_edit_product);
         fabEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new EditAddProductItemTask().execute();
+
+                String name = tittleEditText.getText().toString();
+                Float price = new Float(0.0);
+                try {
+                    price = new Float(priceEditText.getText().toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                Integer count = 0;
+                try {
+                    count = new Integer(countEditText.getText().toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                ProductItem item = new ProductItem(name, price, count);
+
+                new EditAddProductItemTask(item).execute();
             }
         });
 
-        FloatingActionButton fabCacel = (FloatingActionButton) findViewById(R.id.btn_cancel_product);
         fabCacel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,6 +122,10 @@ public class AddProductItemActivity extends BaseActivity {
     public class EditAddProductItemTask extends AsyncTask<Void, Void, Void> {
         private DbOpenHelper dbOpenHelper;
         private ProductItem  productItem;
+
+        public EditAddProductItemTask(ProductItem productItem) {
+            this.productItem = productItem;
+        }
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -115,23 +146,6 @@ public class AddProductItemActivity extends BaseActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             dbOpenHelper = new DbOpenHelper(getApplicationContext());
-
-            productItem = new ProductItem();
-            productItem.setName(tittleEditText.getText().toString());
-            Float price = null;
-            try{
-                price = new Float(priceEditText.getText().toString());
-            }catch(NumberFormatException e){
-                e.printStackTrace();
-            }
-            productItem.setPrice(price);
-            Integer count = null;
-            try{
-                count = new Integer(countEditText.getText().toString());
-            }catch (NumberFormatException e){
-                e.printStackTrace();
-            }
-            productItem.setCount(count);
         }
 
         @Override

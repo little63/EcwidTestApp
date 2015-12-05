@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.androidannotations.annotations.EFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +31,7 @@ import ru.panov.testapp.utils.DbOpenHelper;
  * Created by vitaly.panov on 19.11.15.
  */
 
+@EFragment
 public class RecyclerViewFragment extends Fragment {
 
     private ProgressDialog      dialog;
@@ -119,7 +122,7 @@ public class RecyclerViewFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent( getContext(), AddProductItemActivity.class);
+                Intent intent = new Intent( getContext(), AddProductItemActivity_.class);
                 startActivity(intent);
             }
         });
