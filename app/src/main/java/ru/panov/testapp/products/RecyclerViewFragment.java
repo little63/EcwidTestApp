@@ -1,20 +1,18 @@
 package ru.panov.testapp.products;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +29,19 @@ import ru.panov.testapp.utils.DbOpenHelper;
  * Created by vitaly.panov on 19.11.15.
  */
 
-@EFragment
+@EFragment(R.layout.fragment_recyclerview)
 public class RecyclerViewFragment extends Fragment {
 
+    @ViewById(R.id.no_items_textview)
+    public TextView noItemsTextView;
+
+    @ViewById(R.id.fab)
+    public FloatingActionButton fab;
+
+    @ViewById(R.id.recycler_view)
+    public RecyclerView recyclerView;
+
     private ProgressDialog      dialog;
-    private TextView            noItemsTextView;
     private List<ProductItem>   items;
     private ProductItemAdapter  adapter;
     private SwipeToAction       swipeToAction;
@@ -46,18 +52,19 @@ public class RecyclerViewFragment extends Fragment {
 
     private OnItemSelectedListener listener;
 
-    private WaveSwipeRefreshLayout waveSwipeRefreshLayout;
+    @ViewById(R.id.main_swipe)
+    public WaveSwipeRefreshLayout waveSwipeRefreshLayout;
 
-    @Override
+   /* @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
+    }*/
 
-    @Override
+    /*@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_recyclerview, container, false);
 
-        noItemsTextView = (TextView)root.findViewById(R.id.no_items_textview);
+        //noItemsTextView = (TextView)root.findViewById(R.id.no_items_textview);
 
         dialog = ProgressDialog.show(getContext(), "", getString(R.string.whait));
         dialog.setCancelable(true);
@@ -129,13 +136,88 @@ public class RecyclerViewFragment extends Fragment {
         fab.attachToRecyclerView(recyclerView);
 
         return root;
+    }*/
+
+    @AfterViews
+    void viewsInitialized(){
+
+        dialog = ProgressDialog.show(getContext(), "", getString(R.string.whait));
+        dialog.setCancelable(true);
+
+        //waveSwipeRefreshLayout = (WaveSwipeRefreshLayout) root.findViewById(R.id.main_swipe);
+        waveSwipeRefreshLayout.setOnRefreshListener(new WaveSwipeRefreshLayout.OnRefreshListener() {
+            @Override public void onRefresh() {
+                // Do work to refresh the list here.
+                new GetProductItemsTask().execute();
+            }
+        });
+
+        if( getContext() instanceof OnItemSelectedListener){
+            listener = (OnItemSelectedListener) getContext();
+        } else {
+            throw new ClassCastException(getContext().toString()
+                    + " must implement MyListFragment.OnItemSelectedListener");
+        }
+
+        //RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
+
+        swipeToAction = new SwipeToAction(recyclerView, new SwipeToAction.SwipeListener<ProductItem>() {
+            @Override
+            public boolean swipeLeft(final ProductItem itemData) {
+                final int pos = removeItem(itemData);
+                return true;
+            }
+
+            @Override
+            public boolean swipeRight(ProductItem itemData) {
+                return true;
+            }
+
+            @Override
+            public void onClick(ProductItem itemData) {
+                if (listener != null) {
+                    listener.listItemSelected( itemData );
+                }
+            }
+
+            @Override
+            public void onLongClick(ProductItem itemData) {
+
+            }
+        });
+
+        items = new ArrayList<ProductItem>();
+        String[] arr = getResources().getStringArray(R.array.countries);
+        for (String str : arr) {
+            ProductItem item = new ProductItem();
+            item.setName(str);
+            items.add(item);
+        }
+        adapter = new ProductItemAdapter(getActivity(), items);
+        recyclerView.setAdapter(adapter);
+
+        //FloatingActionButton fab = (FloatingActionButton) root.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent( getContext(), AddProductItemActivity_.class);
+                startActivity(intent);
+            }
+        });
+        fab.attachToRecyclerView(recyclerView);
+
+        new GetProductItemsTask().execute();
     }
 
     private int removeItem(ProductItem item) {
         int pos = items.indexOf( item );
         items.remove(item);
         adapter.notifyItemRemoved(pos);
-        new DeleteTask().execute( item );
+        new DeleteTask().execute(item);
         return pos;
     }
 
@@ -150,17 +232,17 @@ public class RecyclerViewFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        new GetProductItemsTask().execute();
+    //@Override
+    //public void onAttach(Context context) {
+    //    super.onAttach(context);
+        //new GetProductItemsTask().execute();
         /*if (context instanceof OnItemSelectedListener) {
             listener = (OnItemSelectedListener) context;
         } else {
             throw new ClassCastException(context.toString()
                     + " must implement MyListFragment.OnItemSelectedListener");
         }*/
-    }
+    //}
 
     public class DeleteTask extends AsyncTask<ProductItem, Void, Void> {
         DbOpenHelper dbOpenHelper;

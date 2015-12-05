@@ -8,6 +8,6 @@
         android:id="@+id/listFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        class="ru.panov.testapp.products.RecyclerViewFragment" />
+        class="ru.panov.testapp.products.RecyclerViewFragment_" />
 
 </LinearLayout>

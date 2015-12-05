@@ -6,10 +6,10 @@ import org.androidannotations.annotations.EActivity;
 
 import ru.panov.testapp.model.ProductItem;
 import ru.panov.testapp.products.DetailActivity;
-import ru.panov.testapp.products.RecyclerViewFragment;
+import ru.panov.testapp.products.RecyclerViewFragment_;
 
 @EActivity(R.layout.activity_main)
-public class MainActivity extends BaseActivity implements RecyclerViewFragment.OnItemSelectedListener {
+public class MainActivity extends BaseActivity implements RecyclerViewFragment_.OnItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
