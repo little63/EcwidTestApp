@@ -166,27 +166,27 @@ public class RecyclerViewFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
 
-        swipeToAction = new SwipeToAction(recyclerView, new SwipeToAction.SwipeListener<ProductModel>() {
+        swipeToAction = new SwipeToAction(recyclerView, new SwipeToAction.SwipeListener<Product>() {
             @Override
-            public boolean swipeLeft(final ProductModel itemData) {
+            public boolean swipeLeft(final Product itemData) {
                 final int pos = removeItem(itemData);
                 return true;
             }
 
             @Override
-            public boolean swipeRight(ProductModel itemData) {
+            public boolean swipeRight(Product itemData) {
                 return true;
             }
 
             @Override
-            public void onClick(ProductModel itemData) {
+            public void onClick(Product itemData) {
                 if (listener != null) {
-                    listener.listItemSelected( itemData );
+                    listener.listItemSelected( new ProductModel(itemData) );
                 }
             }
 
             @Override
-            public void onLongClick(ProductModel itemData) {
+            public void onLongClick(Product itemData) {
 
             }
         });

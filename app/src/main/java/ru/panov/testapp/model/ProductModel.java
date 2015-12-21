@@ -18,6 +18,10 @@ public class ProductModel extends Product implements Parcelable {
         super();
     }
 
+    public ProductModel( Product product ) throws NullPointerException {
+        super(product.getId(), product.getTittle(), product.getPrice(), product.getCount());
+    }
+
     public ProductModel(String tittle, Float price, Integer count) {
         super(null, tittle, price, count);
     }

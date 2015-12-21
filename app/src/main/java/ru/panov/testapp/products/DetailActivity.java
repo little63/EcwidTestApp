@@ -55,8 +55,8 @@ public class DetailActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent( getApplicationContext(), AddProductItemActivity.class);
-                intent.putExtra(AddProductItemActivity.ACTION_PARAM_NAME, AddProductItemActivity.ACTION_UPDATE);
+                Intent intent = new Intent( getApplicationContext(), AddProductItemActivity_.class);
+                intent.putExtra(AddProductItemActivity_.ACTION_PARAM_NAME, AddProductItemActivity_.ACTION_UPDATE);
                 //intent.putExtra(Product.class.getCanonicalName(), selectedItem);
                 intent.putExtra(ProductModel.class.getCanonicalName(), selectedItem);
                 startActivity(intent);
