@@ -11,7 +11,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
 import ru.panov.testapp.R;
-import ru.panov.testapp.model.ProductItem;
+import ru.panov.testapp.db.Product;
 
 /**
  * Created by vitaly.panov on 19.11.15.
@@ -27,7 +27,7 @@ public class DetailFragment extends Fragment {
     @ViewById(R.id.countEditText)
     public EditText countEditText;
 
-    public void setItem( ProductItem item){
+    public void setItem( Product item){
         //EditText tittleEditText = (EditText)getView().findViewById(R.id.tittleEditText);
         //EditText priceEditText  = (EditText)getView().findViewById(R.id.priceEditText);
         //EditText countEditText  = (EditText)getView().findViewById(R.id.countEditText);
@@ -35,7 +35,7 @@ public class DetailFragment extends Fragment {
         if( tittleEditText != null && priceEditText != null && countEditText != null ){
 
 
-            tittleEditText.setText(item.getName());
+            tittleEditText.setText(item.getTittle());
 
             Float price = item.getPrice();
             if( price != null )

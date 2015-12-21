@@ -21,9 +21,10 @@ import co.dift.ui.SwipeToAction;
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 import ru.panov.testapp.DividerItemDecoration;
 import ru.panov.testapp.R;
+import ru.panov.testapp.db.DBManager;
+import ru.panov.testapp.db.Product;
+import ru.panov.testapp.model.ProductModel;
 import ru.panov.testapp.ui.floactionbar.FloatingActionButton;
-import ru.panov.testapp.model.ProductItem;
-import ru.panov.testapp.utils.DbOpenHelper;
 
 /**
  * Created by vitaly.panov on 19.11.15.
@@ -42,12 +43,12 @@ public class RecyclerViewFragment extends Fragment {
     public RecyclerView recyclerView;
 
     private ProgressDialog      dialog;
-    private List<ProductItem>   items;
+    private List<ProductModel>  items;
     private ProductItemAdapter  adapter;
     private SwipeToAction       swipeToAction;
 
     public interface OnItemSelectedListener {
-        public void listItemSelected(ProductItem item);
+        public void listItemSelected(ProductModel item);
     }
 
     private OnItemSelectedListener listener;
@@ -141,7 +142,7 @@ public class RecyclerViewFragment extends Fragment {
     @AfterViews
     void viewsInitialized(){
 
-        dialog = ProgressDialog.show(getContext(), "", getString(R.string.whait));
+        dialog = ProgressDialog.show( getActivity(), "", getString(R.string.whait));
         dialog.setCancelable(true);
 
         //waveSwipeRefreshLayout = (WaveSwipeRefreshLayout) root.findViewById(R.id.main_swipe);
@@ -152,10 +153,10 @@ public class RecyclerViewFragment extends Fragment {
             }
         });
 
-        if( getContext() instanceof OnItemSelectedListener){
-            listener = (OnItemSelectedListener) getContext();
+        if( getActivity() instanceof OnItemSelectedListener){
+            listener = (OnItemSelectedListener) getActivity();
         } else {
-            throw new ClassCastException(getContext().toString()
+            throw new ClassCastException( getActivity().toString()
                     + " must implement MyListFragment.OnItemSelectedListener");
         }
 
@@ -165,46 +166,46 @@ public class RecyclerViewFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
 
-        swipeToAction = new SwipeToAction(recyclerView, new SwipeToAction.SwipeListener<ProductItem>() {
+        swipeToAction = new SwipeToAction(recyclerView, new SwipeToAction.SwipeListener<ProductModel>() {
             @Override
-            public boolean swipeLeft(final ProductItem itemData) {
+            public boolean swipeLeft(final ProductModel itemData) {
                 final int pos = removeItem(itemData);
                 return true;
             }
 
             @Override
-            public boolean swipeRight(ProductItem itemData) {
+            public boolean swipeRight(ProductModel itemData) {
                 return true;
             }
 
             @Override
-            public void onClick(ProductItem itemData) {
+            public void onClick(ProductModel itemData) {
                 if (listener != null) {
                     listener.listItemSelected( itemData );
                 }
             }
 
             @Override
-            public void onLongClick(ProductItem itemData) {
+            public void onLongClick(ProductModel itemData) {
 
             }
         });
 
-        items = new ArrayList<ProductItem>();
+        items = new ArrayList<ProductModel>();
         String[] arr = getResources().getStringArray(R.array.countries);
         for (String str : arr) {
-            ProductItem item = new ProductItem();
-            item.setName(str);
+            ProductModel item = new ProductModel();
+            item.setTittle(str);
             items.add(item);
         }
-        adapter = new ProductItemAdapter(getActivity(), items);
+        adapter = new ProductItemAdapter( getActivity(), items);
         recyclerView.setAdapter(adapter);
 
         //FloatingActionButton fab = (FloatingActionButton) root.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent( getContext(), AddProductItemActivity_.class);
+                Intent intent = new Intent( getActivity(), AddProductItemActivity_.class);
                 startActivity(intent);
             }
         });
@@ -213,7 +214,7 @@ public class RecyclerViewFragment extends Fragment {
         new GetProductItemsTask().execute();
     }
 
-    private int removeItem(ProductItem item) {
+    private int removeItem(Product item) {
         int pos = items.indexOf( item );
         items.remove(item);
         adapter.notifyItemRemoved(pos);
@@ -221,7 +222,7 @@ public class RecyclerViewFragment extends Fragment {
         return pos;
     }
 
-    public void refreshList(List<ProductItem> result) {
+    public void refreshList(List<ProductModel> result) {
         if(result.size() > 0){
             noItemsTextView.setVisibility(View.GONE);
         } else {
@@ -244,13 +245,15 @@ public class RecyclerViewFragment extends Fragment {
         }*/
     //}
 
-    public class DeleteTask extends AsyncTask<ProductItem, Void, Void> {
-        DbOpenHelper dbOpenHelper;
+    public class DeleteTask extends AsyncTask<Product, Void, Void> {
+        //DbOpenHelper dbOpenHelper;
+        DBManager dbManager;
 
         @Override
-        protected Void doInBackground(ProductItem... deletedProductItems) {
+        protected Void doInBackground(Product... deletedProductItems) {
             for(int i = 0; i < deletedProductItems.length; i++){
-                dbOpenHelper.deleteProductItem(deletedProductItems[i]);
+                //dbOpenHelper.deleteProductItem(deletedProductItems[i]);
+                dbManager.removeProduct( deletedProductItems[i] );
             }
             return null;
         }
@@ -258,7 +261,8 @@ public class RecyclerViewFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dbOpenHelper = new DbOpenHelper( getContext() );
+            //dbOpenHelper = new DbOpenHelper( getActivity() );
+            dbManager = DBManager.getInstance( getActivity() );
         }
 
         @Override
@@ -268,22 +272,26 @@ public class RecyclerViewFragment extends Fragment {
         }
     }
 
-    public class GetProductItemsTask extends AsyncTask<Void, Void, List<ProductItem>> {
-        DbOpenHelper dbOpenHelper;
+    public class GetProductItemsTask extends AsyncTask<Void, Void, List<ProductModel>> {
+        //DbOpenHelper dbOpenHelper;
+        DBManager dbManager;
 
         @Override
-        protected List<ProductItem> doInBackground(Void... voids) {
-            return dbOpenHelper.getProductItems();
+        protected List<ProductModel> doInBackground(Void... voids) {
+            //return dbOpenHelper.getProductItems();
+            return dbManager.getProducts();
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dbOpenHelper = new DbOpenHelper( getContext() );
+            //dbOpenHelper = new DbOpenHelper(getActivity() );
+            dbManager = DBManager.getInstance( getActivity() );
+
         }
 
         @Override
-        protected void onPostExecute(List<ProductItem> result) {
+        protected void onPostExecute(List<ProductModel> result) {
             super.onPostExecute(result);
             dialog.dismiss();
             waveSwipeRefreshLayout.setRefreshing(false);

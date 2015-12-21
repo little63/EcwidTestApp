@@ -12,9 +12,10 @@ import org.androidannotations.annotations.ViewById;
 
 import ru.panov.testapp.BaseActivity;
 import ru.panov.testapp.R;
-import ru.panov.testapp.model.ProductItem;
+import ru.panov.testapp.db.DBManager;
+import ru.panov.testapp.db.Product;
+import ru.panov.testapp.model.ProductModel;
 import ru.panov.testapp.ui.floactionbar.FloatingActionButton;
-import ru.panov.testapp.utils.DbOpenHelper;
 
 /**
  * Created by vitaly.panov on 19.11.15.
@@ -28,7 +29,7 @@ public class AddProductItemActivity extends BaseActivity {
     public static final int ACTION_UPDATE = 1;
     private int action = ACTION_CREATE;
 
-    private Integer editedId;
+    private Long editedId;
 
     @ViewById
     public EditText tittleEditText;
@@ -54,10 +55,10 @@ public class AddProductItemActivity extends BaseActivity {
             action = b.getInt(ACTION_PARAM_NAME);
             switch (action){
                 case ACTION_UPDATE:
-                    ProductItem editedProductItem = b.getParcelable(ProductItem.class.getCanonicalName());
+                    Product editedProductItem = b.getParcelable(Product.class.getCanonicalName());
                     editedId = editedProductItem.getId();
                     if(editedProductItem != null){
-                        tittleEditText.setText(editedProductItem.getName());
+                        tittleEditText.setText(editedProductItem.getTittle());
                         priceEditText.setText(editedProductItem.getPrice().toString());
                         countEditText.setText(editedProductItem.getCount().toString());
                     }
@@ -105,7 +106,7 @@ public class AddProductItemActivity extends BaseActivity {
                     e.printStackTrace();
                 }
 
-                ProductItem item = new ProductItem(name, price, count);
+                ProductModel item = new ProductModel(name, price, count);
 
                 new EditAddProductItemTask(item).execute();
             }
@@ -120,10 +121,11 @@ public class AddProductItemActivity extends BaseActivity {
     }
 
     public class EditAddProductItemTask extends AsyncTask<Void, Void, Void> {
-        private DbOpenHelper dbOpenHelper;
-        private ProductItem  productItem;
+        //private DbOpenHelper dbOpenHelper;
+        private DBManager dbManager;
+        private Product  productItem;
 
-        public EditAddProductItemTask(ProductItem productItem) {
+        public EditAddProductItemTask(Product productItem) {
             this.productItem = productItem;
         }
 
@@ -132,11 +134,13 @@ public class AddProductItemActivity extends BaseActivity {
             switch (action){
                 case ACTION_UPDATE:
                     productItem.setId(editedId);
-                    dbOpenHelper.editProductItem(productItem);
+                    //dbOpenHelper.editProductItem(productItem);
+                    dbManager.editProduct(productItem);
 
                     break;
                 default:
-                    dbOpenHelper.addProductItem(productItem);
+                    //dbOpenHelper.addProductItem(productItem);
+                    dbManager.addProduct(productItem);
 
             }
             return null;
@@ -145,7 +149,8 @@ public class AddProductItemActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dbOpenHelper = new DbOpenHelper(getApplicationContext());
+            //dbOpenHelper = new DbOpenHelper(getApplicationContext());
+            dbManager = DBManager.getInstance(getApplicationContext());
         }
 
         @Override

@@ -8,7 +8,8 @@ import org.androidannotations.annotations.EActivity;
 
 import ru.panov.testapp.BaseActivity;
 import ru.panov.testapp.R;
-import ru.panov.testapp.model.ProductItem;
+import ru.panov.testapp.db.Product;
+import ru.panov.testapp.model.ProductModel;
 
 /**
  * Created by vitaly.panov on 19.11.15.
@@ -20,7 +21,7 @@ public class DetailActivity extends BaseActivity {
     //@Fragment(R.id.detailFragment)
     //protected DetailFragment fragment;
 
-    private ProductItem selectedItem;
+    private ProductModel selectedItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class DetailActivity extends BaseActivity {
         //get selected item
         Bundle b = getIntent().getExtras();
         if( b != null ){
-            selectedItem = b.getParcelable(ProductItem.class.getCanonicalName());
+            selectedItem = b.getParcelable(Product.class.getCanonicalName());
             if( selectedItem != null ){
 
                 //fragment set item
@@ -56,7 +57,8 @@ public class DetailActivity extends BaseActivity {
 
                 Intent intent = new Intent( getApplicationContext(), AddProductItemActivity.class);
                 intent.putExtra(AddProductItemActivity.ACTION_PARAM_NAME, AddProductItemActivity.ACTION_UPDATE);
-                intent.putExtra(ProductItem.class.getCanonicalName(), selectedItem);
+                //intent.putExtra(Product.class.getCanonicalName(), selectedItem);
+                intent.putExtra(ProductModel.class.getCanonicalName(), selectedItem);
                 startActivity(intent);
 
             }

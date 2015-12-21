@@ -47,7 +47,6 @@ android {
     }
 }
 
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.1.0'
@@ -61,4 +60,8 @@ dependencies {
     //androidannotations
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
+    //compile('de.greenrobot:greendao:1.3.0')
+    compile('de.greenrobot:greendao:1.3.0') {
+        exclude module: 'support-v4'
+    }
 }

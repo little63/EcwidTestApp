@@ -11,7 +11,8 @@ import java.util.List;
 
 import co.dift.ui.SwipeToAction;
 import ru.panov.testapp.R;
-import ru.panov.testapp.model.ProductItem;
+import ru.panov.testapp.db.Product;
+import ru.panov.testapp.model.ProductModel;
 
 /**
  * Created by vitaly.panov on 18.11.15.
@@ -20,7 +21,7 @@ import ru.panov.testapp.model.ProductItem;
 public class ProductItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     /** References to the views for each data item **/
-    public class ProductItemViewHolder extends SwipeToAction.ViewHolder<ProductItem> {
+    public class ProductItemViewHolder extends SwipeToAction.ViewHolder<Product> {
         public TextView titleView;
         public TextView priceView;
         public TextView countView;
@@ -35,7 +36,7 @@ public class ProductItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     private Context context;
-    private List<ProductItem> dataset;
+    private List<ProductModel> dataset;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
@@ -49,19 +50,19 @@ public class ProductItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    public void add(int position, ProductItem item) {
+    public void add(int position, ProductModel item) {
         dataset.add(position, item);
         notifyItemInserted(position);
     }
 
-    public void remove(ProductItem item) {
+    public void remove(Product item) {
         int position = dataset.indexOf(item);
         dataset.remove(position);
         notifyItemRemoved(position);
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ProductItemAdapter( Context context, List<ProductItem> dataset) {
+    public ProductItemAdapter( Context context, List<ProductModel> dataset) {
         this.context = context;
         this.dataset = dataset;
 
@@ -85,9 +86,9 @@ public class ProductItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ProductItem item = dataset.get(position);
+        Product item = dataset.get(position);
         ProductItemViewHolder vh = (ProductItemViewHolder) holder;
-        vh.titleView.setText( item.getName() );
+        vh.titleView.setText( item.getTittle() );
         //vh.priceView.setText( item.getPrice().toString() );
         //vh.countView.setText( item.getCount() );
         vh.data = item;
