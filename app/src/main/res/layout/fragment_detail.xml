@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/tittleText"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|center_vertical"
         android:layout_marginTop="30dip"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -17,49 +17,52 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="30dip"
+        android:layout_gravity="center_horizontal|center_vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10dip"
+            android:textSize="15dip"
             android:text="@string/price"/>
 
         <TextView
             android:id="@+id/priceText"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_marginTop="30dip"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="10dip" />
+            android:textSize="15dip" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal|center_vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10dip"
+            android:textSize="15dip"
             android:text="@string/count"/>
 
         <TextView
             android:id="@+id/countText"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_marginTop="30dip"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="10dip" />
+            android:textSize="15dip" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10dip"
+            android:textSize="15dip"
             android:text="@string/peace"/>
 
     </LinearLayout>

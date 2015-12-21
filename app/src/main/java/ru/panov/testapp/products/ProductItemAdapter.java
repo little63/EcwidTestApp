@@ -22,6 +22,7 @@ public class ProductItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     /** References to the views for each data item **/
     public class ProductItemViewHolder extends SwipeToAction.ViewHolder<Product> {
+
         public TextView titleView;
         public TextView priceView;
         public TextView countView;
@@ -89,8 +90,12 @@ public class ProductItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         Product item = dataset.get(position);
         ProductItemViewHolder vh = (ProductItemViewHolder) holder;
         vh.titleView.setText( item.getTittle() );
-        //vh.priceView.setText( item.getPrice().toString() );
-        //vh.countView.setText( item.getCount() );
+        Float price = item.getPrice();
+        if( price != null )
+            vh.priceView.setText(price.toString() );
+        Integer count = item.getCount();
+        if( count != null )
+            vh.countView.setText(count.toString() );
         vh.data = item;
     }
     // Replace the contents of a view (invoked by the layout manager)

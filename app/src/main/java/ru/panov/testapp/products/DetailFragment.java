@@ -24,10 +24,7 @@ public class DetailFragment extends Fragment {
     @ViewById(R.id.countText)
     public TextView countText;
 
-    //private ProductModel item;
-
     public void setItem( ProductModel item){
-        //this.item = item;
 
         if( tittleText != null && priceText != null && countText != null && item != null ){
 

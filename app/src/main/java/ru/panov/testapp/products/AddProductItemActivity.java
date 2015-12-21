@@ -36,7 +36,7 @@ public class AddProductItemActivity extends BaseActivity {
     public EditText tittleEditText;
     @ViewById(R.id.priceEditText)
     public EditText priceEditText;
-    @ViewById(R.id.priceEditText)
+    @ViewById(R.id.countEditText)
     public EditText countEditText;
 
     @ViewById(R.id.btn_edit_product)
@@ -136,12 +136,10 @@ public class AddProductItemActivity extends BaseActivity {
             switch (action){
                 case ACTION_UPDATE:
                     productItem.setId(editedId);
-                    //dbOpenHelper.editProductItem(productItem);
                     dbManager.editProduct(productItem);
 
                     break;
                 default:
-                    //dbOpenHelper.addProductItem(productItem);
                     dbManager.addProduct(productItem);
 
             }
