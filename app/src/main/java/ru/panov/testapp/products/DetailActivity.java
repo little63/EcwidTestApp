@@ -1,10 +1,14 @@
 package ru.panov.testapp.products;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.FragmentById;
 
 import ru.panov.testapp.BaseActivity;
 import ru.panov.testapp.R;
@@ -18,8 +22,8 @@ import ru.panov.testapp.model.ProductModel;
 @EActivity(R.layout.activity_detail)
 public class DetailActivity extends BaseActivity {
 
-    //@Fragment(R.id.detailFragment)
-    //protected DetailFragment fragment;
+    @FragmentById(R.id.detailFragment)
+    public DetailFragment fragment;
 
     private ProductModel selectedItem;
 
@@ -34,19 +38,17 @@ public class DetailActivity extends BaseActivity {
             return;
         }
         //setContentView(R.layout.activity_detail);
+    }
 
+    @AfterViews
+    void afterViews(){
         //get selected item
         Bundle b = getIntent().getExtras();
         if( b != null ){
-            selectedItem = b.getParcelable(Product.class.getCanonicalName());
+            selectedItem = b.getParcelable(ProductModel.class.getCanonicalName());
             if( selectedItem != null ){
-
                 //fragment set item
-                //DetailFragment fragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.detailFragment);
-                //DetailFragment fragment = (DetailFragment)getSupportFragmentManager().findFragmentById( R.id.detailFragment );
-                DetailFragment fragment = new DetailFragment_();
                 fragment.setItem( selectedItem );
-
             }
         }
 
@@ -57,11 +59,25 @@ public class DetailActivity extends BaseActivity {
 
                 Intent intent = new Intent( getApplicationContext(), AddProductItemActivity_.class);
                 intent.putExtra(AddProductItemActivity_.ACTION_PARAM_NAME, AddProductItemActivity_.ACTION_UPDATE);
-                //intent.putExtra(Product.class.getCanonicalName(), selectedItem);
                 intent.putExtra(ProductModel.class.getCanonicalName(), selectedItem);
-                startActivity(intent);
+                //startActivity(intent);
+                startActivityForResult(intent, 1);
 
             }
         });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                selectedItem = data.getParcelableExtra("result");
+                fragment.setItem( selectedItem );
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }//onActivityResult
 }

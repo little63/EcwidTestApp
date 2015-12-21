@@ -1,5 +1,6 @@
 package ru.panov.testapp.products;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -31,11 +32,11 @@ public class AddProductItemActivity extends BaseActivity {
 
     private Long editedId;
 
-    @ViewById
+    @ViewById(R.id.tittleEditText)
     public EditText tittleEditText;
-    @ViewById
+    @ViewById(R.id.priceEditText)
     public EditText priceEditText;
-    @ViewById
+    @ViewById(R.id.priceEditText)
     public EditText countEditText;
 
     @ViewById(R.id.btn_edit_product)
@@ -50,14 +51,18 @@ public class AddProductItemActivity extends BaseActivity {
 
         editButton.setVisibility( View.GONE );
 
+    }
+
+    @AfterViews
+    public void viewsInitialized() {
         Bundle b = getIntent().getExtras();
         if( b != null ){
             action = b.getInt(ACTION_PARAM_NAME);
             switch (action){
                 case ACTION_UPDATE:
-                    Product editedProductItem = b.getParcelable(Product.class.getCanonicalName());
-                    editedId = editedProductItem.getId();
+                    Product editedProductItem = b.getParcelable(ProductModel.class.getCanonicalName());
                     if(editedProductItem != null){
+                        editedId = editedProductItem.getId();
                         tittleEditText.setText(editedProductItem.getTittle());
                         priceEditText.setText(editedProductItem.getPrice().toString());
                         countEditText.setText(editedProductItem.getCount().toString());
@@ -68,10 +73,7 @@ public class AddProductItemActivity extends BaseActivity {
                     break;
             }
         }
-    }
 
-    @AfterViews
-    void viewsInitialized() {
         countEditText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
@@ -123,9 +125,9 @@ public class AddProductItemActivity extends BaseActivity {
     public class EditAddProductItemTask extends AsyncTask<Void, Void, Void> {
         //private DbOpenHelper dbOpenHelper;
         private DBManager dbManager;
-        private Product  productItem;
+        private ProductModel  productItem;
 
-        public EditAddProductItemTask(Product productItem) {
+        public EditAddProductItemTask(ProductModel productItem) {
             this.productItem = productItem;
         }
 
@@ -156,7 +158,9 @@ public class AddProductItemActivity extends BaseActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            setResult(RESULT_OK);
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("result", productItem);
+            setResult(RESULT_OK, returnIntent);
             finish();
         }
     }

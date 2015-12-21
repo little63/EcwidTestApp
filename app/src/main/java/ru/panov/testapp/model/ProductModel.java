@@ -6,12 +6,21 @@ import android.os.Parcelable;
 import ru.panov.testapp.db.Product;
 
 /**
- * Created by vetalpanov on 21.12.15.
+ * Created by vitaly.panov on 21.12.15.
  */
+
 public class ProductModel extends Product implements Parcelable {
 
 
     protected ProductModel(Parcel in) {
+        readFromParcel(in);
+    }
+
+    private void readFromParcel(Parcel in) {
+        setId(in.readLong());
+        setTittle(in.readString());
+        setPrice(in.readFloat());
+        setCount( in.readInt() );
     }
 
     public ProductModel() {
@@ -44,6 +53,10 @@ public class ProductModel extends Product implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeLong( getId() );
+        parcel.writeString( getTittle() );
+        parcel.writeFloat( getPrice());
+        parcel.writeInt( getCount() );
     }
 }

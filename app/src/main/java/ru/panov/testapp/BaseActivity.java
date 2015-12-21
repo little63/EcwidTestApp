@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.SystemService;
 import org.androidannotations.annotations.ViewById;
@@ -22,9 +23,9 @@ import org.androidannotations.annotations.ViewById;
 public class BaseActivity extends AppCompatActivity {
 
     //@ViewById(R.id.editButton)
-    protected ImageButton editButton;
+    public ImageButton editButton;
     //@ViewById(R.id.backButton)
-    protected ImageButton backBtn;
+    public ImageButton backBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

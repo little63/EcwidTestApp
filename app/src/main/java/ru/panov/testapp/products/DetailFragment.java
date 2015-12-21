@@ -1,17 +1,14 @@
 package ru.panov.testapp.products;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.TextView;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
 import ru.panov.testapp.R;
-import ru.panov.testapp.db.Product;
+import ru.panov.testapp.model.ProductModel;
 
 /**
  * Created by vitaly.panov on 19.11.15.
@@ -20,28 +17,29 @@ import ru.panov.testapp.db.Product;
 @EFragment(R.layout.fragment_detail)
 public class DetailFragment extends Fragment {
 
-    @ViewById(R.id.tittleEditText)
-    public EditText tittleEditText;
-    @ViewById(R.id.priceEditText)
-    public EditText priceEditText;
-    @ViewById(R.id.countEditText)
-    public EditText countEditText;
+    @ViewById(R.id.tittleText)
+    public TextView tittleText;
+    @ViewById(R.id.priceText)
+    public TextView priceText;
+    @ViewById(R.id.countText)
+    public TextView countText;
 
-    public void setItem( Product item){
-        //EditText tittleEditText = (EditText)getView().findViewById(R.id.tittleEditText);
-        //EditText priceEditText  = (EditText)getView().findViewById(R.id.priceEditText);
-        //EditText countEditText  = (EditText)getView().findViewById(R.id.countEditText);
+    //private ProductModel item;
 
-        if( tittleEditText != null && priceEditText != null && countEditText != null ){
+    public void setItem( ProductModel item){
+        //this.item = item;
 
+        if( tittleText != null && priceText != null && countText != null && item != null ){
 
-            tittleEditText.setText(item.getTittle());
+            tittleText.setText(item.getTittle());
 
             Float price = item.getPrice();
             if( price != null )
-                priceEditText.setText( price.toString() );
+                priceText.setText( price.toString() );
 
-            countEditText.setText( item.getCount() );
+            Integer count = item.getCount();
+            if( count != null )
+                countText.setText( count.toString() );
 
         }
     }
