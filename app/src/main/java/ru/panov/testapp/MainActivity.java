@@ -1,25 +1,27 @@
 package ru.panov.testapp;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Parcelable;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
-
-import java.util.List;
-
-import ru.panov.testapp.db.DaoMaster;
-import ru.panov.testapp.db.DaoSession;
-import ru.panov.testapp.db.Product;
-import ru.panov.testapp.db.ProductDao;
+import org.androidannotations.annotations.FragmentById;
 
 import ru.panov.testapp.model.ProductModel;
 import ru.panov.testapp.products.DetailActivity_;
+import ru.panov.testapp.products.DetailFragment;
+import ru.panov.testapp.products.RecyclerViewFragment;
 import ru.panov.testapp.products.RecyclerViewFragment_;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends BaseActivity implements RecyclerViewFragment_.OnItemSelectedListener {
+
+    @FragmentById(R.id.detailFragment)
+    public DetailFragment fragment;
+
+    @FragmentById(R.id.listFragment)
+    public RecyclerViewFragment listFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +34,31 @@ public class MainActivity extends BaseActivity implements RecyclerViewFragment_.
     public void listItemSelected( ProductModel item ) {
         boolean dual_pane = getResources().getBoolean(R.bool.dual_pane);
         if (dual_pane) {
-            //DetailFragment fragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.detailFragment);
             //fragment.setItem(item);
         } else {
             Intent intent = new Intent(getApplicationContext(), DetailActivity_.class);
             intent.putExtra(ProductModel.class.getCanonicalName(), item);
             startActivityForResult(intent, 1);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        //if (requestCode == 1) {
+        //    if(resultCode == Activity.RESULT_OK){
+                if( listFragment != null ){
+                    listFragment.loadData();
+                }
+        //    }
+        //}
+    }
+
+    @AfterViews
+    void afterViews(){
+        boolean dual_pane = getResources().getBoolean(R.bool.dual_pane);
+        if (dual_pane) {
+
         }
     }
 }

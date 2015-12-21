@@ -75,9 +75,6 @@ public class DetailActivity extends BaseActivity {
                 selectedItem = data.getParcelableExtra("result");
                 fragment.setItem( selectedItem );
             }
-            if (resultCode == Activity.RESULT_CANCELED) {
-                //Write your code if there's no result
-            }
         }
-    }//onActivityResult
+    }
 }
