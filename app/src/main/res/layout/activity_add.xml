@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
                 android:layout_margin="16dp"
-                android:src="@drawable/ic_add_white_24dp"
+                android:src="@drawable/ic_ok_white_24dp"
                 fab:fab_colorNormal="@color/ok"
                 fab:fab_colorPressed="@color/ok_pressed"
                 fab:fab_colorRipple="@color/ok_ripple"/>
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
                 android:layout_margin="16dp"
-                android:src="@drawable/ic_add_white_24dp"
+                android:src="@drawable/ic_cancel_white_24dp"
                 fab:fab_colorNormal="@color/cancel"
                 fab:fab_colorPressed="@color/cancel_pressed"
                 fab:fab_colorRipple="@color/cancel_ripple"/>
