@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -74,7 +75,7 @@ public class AddProductItemActivity extends BaseActivity {
             }
         }
 
-        countEditText.setOnKeyListener(new View.OnKeyListener() {
+        /*tittleEditText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
                 if (keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
@@ -89,28 +90,64 @@ public class AddProductItemActivity extends BaseActivity {
             }
         });
 
+        priceEditText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if (keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
+                    switch (keyCode) {
+                        case KeyEvent.KEYCODE_ENTER:
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+                return false;
+            }
+        });
+
+        countEditText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if (keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
+                    switch (keyCode) {
+                        case KeyEvent.KEYCODE_ENTER:
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+                return false;
+            }
+        });*/
+
         fabEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String name = tittleEditText.getText().toString();
-                Float price = new Float(0.0);
-                try {
-                    price = new Float(priceEditText.getText().toString());
-                } catch (Exception e) {
-                    e.printStackTrace();
+
+                if( "".equals(name)){
+                    Toast.makeText( getApplicationContext(), getString( R.string.tittle_please ), Toast.LENGTH_LONG ).show();
+                    //todo show custom dialog window
+                } else {
+                    Float price = new Float(0.0);
+                    try {
+                        price = new Float(priceEditText.getText().toString());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    Integer count = 0;
+                    try {
+                        count = new Integer(countEditText.getText().toString());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    ProductModel item = new ProductModel(name, price, count);
+
+                    new EditAddProductItemTask(item).execute();
                 }
-
-                Integer count = 0;
-                try {
-                    count = new Integer(countEditText.getText().toString());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                ProductModel item = new ProductModel(name, price, count);
-
-                new EditAddProductItemTask(item).execute();
             }
         });
 

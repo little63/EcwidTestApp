@@ -24,4 +24,6 @@
     <color name="item_background">#FFF</color>
     <color name="secondary">#FF4081</color>
 
+    <color name="price_text_color">#1f67aa</color>
+
 </resources>

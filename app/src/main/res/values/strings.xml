@@ -15,4 +15,8 @@
     <string name="price">Цена: </string>
     <string name="count">Количество: </string>
     <string name="peace">шт.</string>
+
+    <string name="no_selected">Выберите товар из списка слева</string>
+
+    <string name="tittle_please">Пожалуйста введите наименование товара</string>
 </resources>
